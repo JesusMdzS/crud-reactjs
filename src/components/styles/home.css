@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  
+  }
+  
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  .brand{
+    color: black;
+  }
+  
+  .logo{
+    width: 70px;
+    height: 70px;
+  }
+  .titulo{
+    margin-left: 20px;
+  }
+  .information-card{
+    width: 90%;
+    margin-top: 20%;
+    text-align: justify;
+  }
+  .information-card-h1{
+    font-size: 5em;
+   text-align: left;
+    padding-bottom: 20px;
+  }
+  .information-card-p{
+    font-size: 1.5em;
+  color: rgb(100, 100, 100);
+   text-align: left;
+    padding-bottom: 20px;
+  }
+  
+  .patient-img{
+    margin-top: 20%;
+    width: 100%;
+  }
+  /* ////////////////////// */
+  .btn-light {
+    color: #fff;
+    background-color: #8BC8DB !important;
+    border-color: #8BC8DB!important;
+    
+  }
+  
+  .card-footer{
+    margin-top: 14%;
+    height: 10vh;
+  }
+  
+  .text-muted{
+    background-color: #8BC8DB!important;
+  }
