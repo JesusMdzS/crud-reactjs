@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
     };
   }
   cargarDatos() {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("http://localhost/API/")
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         console.log(datosRespuesta);
@@ -35,9 +35,7 @@ class Dashboard extends React.Component {
           <h1 className="header-text">CITAS</h1>
 
           <Link to="/create">
-            <Button variant="secondary" onClick="">
-              Agregar cita
-            </Button>
+            <Button variant="secondary">Agregar cita</Button>
           </Link>
           <br />
           <br />
@@ -46,8 +44,9 @@ class Dashboard extends React.Component {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Doctor</th>
+                <th>Id paciente</th>
                 <th>Paciente</th>
+                <th>email</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Editar</th>
@@ -56,17 +55,16 @@ class Dashboard extends React.Component {
             </thead>
             <tbody>
               {personas.map((persona) => (
-                <tr key={persona.id}>
-                  <td>{persona.id}</td>
-                  <td>{persona.name}</td>
-                  <td>{persona.name}</td>
-                  <td>{persona.name}</td>
-                  <td>{persona.name}</td>
+                <tr key={persona.idcita}>
+                  <td>{persona.idcita}</td>
+                  <td>{persona.idpersona}</td>
+                  <td>{persona.nombre_persona}</td>
+                  <td>{persona.email}</td>
+                  <td>{persona.fecha}</td>
+                  <td>{persona.hour}</td>
                   <td>
                     <Link to="/edit">
-                      <Button variant="secondary" onClick="">
-                        Editar
-                      </Button>
+                      <Button variant="secondary">Editar</Button>
                     </Link>
                   </td>
                   <td>

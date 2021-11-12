@@ -13,7 +13,7 @@ function Home() {
   return (
     <div className="home">
       <div className="container">
-        <Navbar bg="white" variant="white">
+        <Navbar>
           <img src="./img/logo.png" className="logo" alt="logo"></img>
           <h1 className="titulo"> Agendador de citas médicas</h1>
         </Navbar>
