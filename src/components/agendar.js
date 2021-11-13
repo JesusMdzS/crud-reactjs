@@ -3,12 +3,13 @@ import React from "react";
 import { Form, Button, Container, Row, Col, Navbar } from "react-bootstrap";
 import "./styles/agendar.css";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 class Agendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameDoctor: "",
+      email: "",
       namePatient: "",
       date: "",
       hour: "",
@@ -45,6 +46,14 @@ class Agendar extends React.Component {
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         console.log(datosRespuesta);
+        console.log(datosEnviar);
+        swal({
+          title: "Bien!",
+          text: "Has sido agregado con exito!",
+          type: "success",
+        }).then(function () {
+          window.location = "/dashboard";
+        });
       })
       .catch(console.log());
   };
@@ -53,13 +62,9 @@ class Agendar extends React.Component {
     const { email, namePatient, date, hour, subject } = this.state;
     return (
       <>
-        <div className="container">
-          <Navbar bg="white" variant="white">
-            <img src="./img/logo.png" className="logo" alt="logo"></img>
-            <h1 className="titulo"> Agendador de citas médicas</h1>
-          </Navbar>
+        <div className="header-div">
+          <h1 className="header-text">Agrega tus datos para agendar tu cita</h1>
         </div>
-
         <div className="all">
           <Container>
             <Row>
@@ -116,7 +121,7 @@ class Agendar extends React.Component {
                   <Button variant="secondary" type="submit" size="">
                     Agregar
                   </Button>
-                  <span /> <span /> <span />
+
                   <Link to="/dashboard">
                     <Button variant="primary" type="submit">
                       Cancelar
