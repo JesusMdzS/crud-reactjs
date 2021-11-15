@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./styles/agendar.css";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
-function Example() {
+function Editar() {
   let { idpersona } = useParams();
   // Declaración de una variable de estado que llamaremos "state"
   const [state, setstate] = useState({
@@ -15,7 +16,47 @@ function Example() {
     const estado = state.persona;
     estado[e.target.name] = e.target.value;
     setstate({ persona: estado });
+
     console.log(estado);
+  };
+
+  const enviarDatos = (e) => {
+    e.preventDefault();
+    console.log("Formulario fue enviado...");
+    const { name_person, email, fecha, hour, subject } = state.persona;
+    console.log(idpersona);
+    console.log(email);
+    console.log(name_person);
+    console.log(fecha);
+    console.log(hour);
+    console.log(subject);
+
+    var datosEnviar = {
+      idpersona: idpersona,
+      email: email,
+      name_person: name_person,
+      fecha: fecha,
+      hour: hour,
+      subject: subject,
+    };
+
+    fetch("http://localhost/API/?update=" + idpersona, {
+      method: "POST",
+      body: JSON.stringify(datosEnviar),
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datosRespuesta) => {
+        console.log(datosRespuesta);
+        console.log(datosEnviar);
+        swal({
+          title: "Bien!",
+          text: "Has sido editado con exito!",
+          type: "success",
+        }).then(function () {
+          window.location = "/dashboard";
+        });
+      })
+      .catch(console.log());
   };
 
   const consultar = () => {
@@ -44,19 +85,19 @@ function Example() {
             <Col>
               <h1>Edita tu cita</h1>
               {state.persona.map((persona, index) => (
-                <Form key={index}>
+                <Form key={index} onSubmit={enviarDatos}>
                   <Form.Group className="mb-3">
                     <Form.Label>Tu id</Form.Label>
                     <Form.Control
                       type="text"
-                      name="namePatient"
+                      name="persona.idpersona"
                       value={persona.idpersona}
                       readOnly
                     />
                     <Form.Label>Ingresa tu nombre</Form.Label>
                     <Form.Control
                       type="text"
-                      name="namePatient"
+                      name="name_person"
                       value={persona.name_person}
                       onChange={handleChange}
                       required
@@ -66,27 +107,32 @@ function Example() {
                       type="email"
                       name="email"
                       value={persona.email}
+                      onChange={handleChange}
                       required
                     />
                     <Form.Label>Ingresa el dia de tu cita</Form.Label>
                     <Form.Control
                       type="date"
-                      placeholder="dia"
+                      name="fecha"
                       value={persona.fecha}
+                      onChange={handleChange}
                       required
                     ></Form.Control>
                     <Form.Label>Ingresa la hora</Form.Label>
                     <Form.Control
                       type="time"
-                      placeholder="hora"
+                      name="hour"
                       value={persona.hour}
+                      onChange={handleChange}
                       required
                     ></Form.Control>
                     <Form.Label>Ingresa un asunto de tu cita</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="asunto"
+                      name="subject"
                       value={persona.subject}
+                      onChange={handleChange}
                       required
                     ></Form.Control>
                   </Form.Group>
@@ -115,4 +161,4 @@ function Example() {
     </>
   );
 }
-export default Example;
+export default Editar;

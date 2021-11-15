@@ -83,6 +83,7 @@ class Dashboard extends React.Component {
                   <th>email</th>
                   <th>Fecha</th>
                   <th>Hora</th>
+                  <th>Asunto</th>
                   <th>Editar</th>
                   <th>Eliminar</th>
                 </tr>
@@ -96,6 +97,7 @@ class Dashboard extends React.Component {
                     <td>{persona.email}</td>
                     <td>{persona.fecha}</td>
                     <td>{persona.hour}</td>
+                    <td>{persona.subject}</td>
                     <td>
                       <Link
                         to={{
