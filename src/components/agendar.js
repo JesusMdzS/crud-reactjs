@@ -1,6 +1,6 @@
 // import Button from "@restart/ui/esm/Button";
 import React from "react";
-import { Form, Button, Container, Row, Col, Navbar } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./styles/agendar.css";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";

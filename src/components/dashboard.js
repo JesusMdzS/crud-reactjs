@@ -8,11 +8,9 @@ import { Link } from "react-router-dom";
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      datosCargados: false,
-      personas: [],
-    };
+    this.state = {};
   }
+
   //DELETE
   borrarDatos = (id) => {
     console.log(id);
@@ -38,6 +36,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.cargarDatos();
   }
+
   render() {
     const { datosCargados, personas } = this.state;
     if (!datosCargados) {
@@ -51,7 +50,6 @@ class Dashboard extends React.Component {
 
           <div className="all">
             <h1 className="header-text2">CITAS</h1>
-
             <Link to="/create">
               <Button variant="secondary" size="lg">
                 Agregar cita
@@ -83,7 +81,11 @@ class Dashboard extends React.Component {
                     <td>{persona.fecha}</td>
                     <td>{persona.hour}</td>
                     <td>
-                      <Link to="/edit">
+                      <Link
+                        to={{
+                          pathname: "/edit/" + persona.idpersona,
+                        }}
+                      >
                         <Button variant="secondary">Editar</Button>
                       </Link>
                     </td>
