@@ -67,7 +67,6 @@ function Editar() {
         setstate({ persona: datosRespuesta });
       })
       .catch(console.log());
-    console.log(state.persona);
   };
 
   useEffect(() => {
@@ -100,7 +99,6 @@ function Editar() {
                       name="name_person"
                       value={persona.name_person}
                       onChange={handleChange}
-                      required
                     />
                     <Form.Label>Ingresa tu Correo</Form.Label>
                     <Form.Control
@@ -108,7 +106,6 @@ function Editar() {
                       name="email"
                       value={persona.email}
                       onChange={handleChange}
-                      required
                     />
                     <Form.Label>Ingresa el dia de tu cita</Form.Label>
                     <Form.Control
@@ -116,7 +113,6 @@ function Editar() {
                       name="fecha"
                       value={persona.fecha}
                       onChange={handleChange}
-                      required
                     ></Form.Control>
                     <Form.Label>Ingresa la hora</Form.Label>
                     <Form.Control
@@ -124,7 +120,6 @@ function Editar() {
                       name="hour"
                       value={persona.hour}
                       onChange={handleChange}
-                      required
                     ></Form.Control>
                     <Form.Label>Ingresa un asunto de tu cita</Form.Label>
                     <Form.Control
@@ -133,7 +128,6 @@ function Editar() {
                       name="subject"
                       value={persona.subject}
                       onChange={handleChange}
-                      required
                     ></Form.Control>
                   </Form.Group>
                   <Button variant="secondary" type="submit">
@@ -151,7 +145,7 @@ function Editar() {
               {" "}
               <img
                 className="patient-img2"
-                src="./img/paciente.jpg"
+                src="../img/paciente.jpg"
                 alt="patient"
               ></img>
             </Col>
