@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./styles/agendar.css";
+import { Link } from "react-router-dom";
 
 function Example() {
   let { idpersona } = useParams();
   // Declaración de una variable de estado que llamaremos "state"
   const [state, setstate] = useState({
-    datosCargados: false,
     persona: [],
   });
 
   const handleChange = (e) => {
-    console.log(e);
+    const estado = state.persona;
+    estado[e.target.name] = e.target.value;
+    setstate({ persona: estado });
+    console.log(estado);
   };
 
   const consultar = () => {
@@ -20,7 +23,7 @@ function Example() {
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         console.log(datosRespuesta);
-        setstate({ datosCargados: true, persona: datosRespuesta });
+        setstate({ persona: datosRespuesta });
       })
       .catch(console.log());
     console.log(state.persona);
@@ -43,6 +46,13 @@ function Example() {
               {state.persona.map((persona, index) => (
                 <Form key={index}>
                   <Form.Group className="mb-3">
+                    <Form.Label>Tu id</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="namePatient"
+                      value={persona.idpersona}
+                      readOnly
+                    />
                     <Form.Label>Ingresa tu nombre</Form.Label>
                     <Form.Control
                       type="text"
@@ -83,6 +93,11 @@ function Example() {
                   <Button variant="secondary" type="submit">
                     Guardar
                   </Button>
+                  <Link to="/dashboard">
+                    <Button variant="primary" type="submit">
+                      Cancelar
+                    </Button>
+                  </Link>
                 </Form>
               ))}
             </Col>

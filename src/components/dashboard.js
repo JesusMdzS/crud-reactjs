@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -13,14 +14,29 @@ class Dashboard extends React.Component {
 
   //DELETE
   borrarDatos = (id) => {
-    console.log(id);
-    fetch("http://localhost/API/?delete=" + id)
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        console.log(datosRespuesta);
-        this.cargarDatos();
-      })
-      .catch(console.log());
+    swal({
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no podrás recuperar esta cita",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        console.log(id);
+        fetch("http://localhost/API/?delete=" + id)
+          .then((respuesta) => respuesta.json())
+          .then((datosRespuesta) => {
+            console.log(datosRespuesta);
+            this.cargarDatos();
+          })
+          .catch(console.log());
+        swal("Se ha eliminado correctamente :)", {
+          icon: "success",
+        });
+      } else {
+        swal("Tu operación fue cancelada");
+      }
+    });
   };
 
   //GET ALL DATA
