@@ -51,7 +51,7 @@ function Editar() {
         swal({
           title: "Bien!",
           text: "Has sido editado con exito!",
-          type: "success",
+          icon: "success",
         }).then(function () {
           window.location = "/dashboard";
         });
@@ -97,28 +97,28 @@ function Editar() {
                     <Form.Control
                       type="text"
                       name="name_person"
-                      value={persona.name_person}
+                      defaultValue={persona.name_person}
                       onChange={handleChange}
                     />
                     <Form.Label>Ingresa tu Correo</Form.Label>
                     <Form.Control
                       type="email"
                       name="email"
-                      value={persona.email}
+                      defaultValue={persona.email}
                       onChange={handleChange}
                     />
                     <Form.Label>Ingresa el dia de tu cita</Form.Label>
                     <Form.Control
                       type="date"
                       name="fecha"
-                      value={persona.fecha}
+                      defaultValue={persona.fecha}
                       onChange={handleChange}
                     ></Form.Control>
                     <Form.Label>Ingresa la hora</Form.Label>
                     <Form.Control
                       type="time"
                       name="hour"
-                      value={persona.hour}
+                      defaultValue={persona.hour}
                       onChange={handleChange}
                     ></Form.Control>
                     <Form.Label>Ingresa un asunto de tu cita</Form.Label>
@@ -126,7 +126,7 @@ function Editar() {
                       type="text"
                       placeholder="asunto"
                       name="subject"
-                      value={persona.subject}
+                      defaultValue={persona.subject}
                       onChange={handleChange}
                     ></Form.Control>
                   </Form.Group>
