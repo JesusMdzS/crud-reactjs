@@ -4,50 +4,44 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./styles/agendar.css";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import axios from "axios";
 
 function Editar() {
   let { idpersona } = useParams();
   // Declaración de una variable de estado que llamaremos "state"
-  const [state, setstate] = useState({
-    persona: [],
+  const [stateUser, setstateUser] = useState({
+    name_person: "",
+    email: "",
+    fecha: "",
+    hour: "",
+    subject: "",
   });
 
   const handleChange = (e) => {
-    const estado = state.persona;
-    estado[e.target.name] = e.target.value;
-    setstate({ persona: estado });
-
-    console.log(estado);
+    const { name, value } = e.target;
+    setstateUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log(stateUser);
   };
 
-  const enviarDatos = (e) => {
-    e.preventDefault();
-    console.log("Formulario fue enviado...");
-    const { name_person, email, fecha, hour, subject } = state.persona;
-    console.log(idpersona);
-    console.log(email);
-    console.log(name_person);
-    console.log(fecha);
-    console.log(hour);
-    console.log(subject);
+  const consultar = async () => {
+    await axios.get("http://localhost/API/?get=" + idpersona).then((res) => {
+      console.log(res.data[0]);
+      setstateUser(res.data[0]);
+    });
+  };
 
-    var datosEnviar = {
-      idpersona: idpersona,
-      email: email,
-      name_person: name_person,
-      fecha: fecha,
-      hour: hour,
-      subject: subject,
-    };
-
+  const enviarDatos = async () => {
     fetch("http://localhost/API/?update=" + idpersona, {
       method: "POST",
-      body: JSON.stringify(datosEnviar),
+      body: JSON.stringify(stateUser),
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         console.log(datosRespuesta);
-        console.log(datosEnviar);
+        console.log(stateUser);
         swal({
           title: "Bien!",
           text: "Has sido editado con exito!",
@@ -55,16 +49,6 @@ function Editar() {
         }).then(function () {
           window.location = "/dashboard";
         });
-      })
-      .catch(console.log());
-  };
-
-  const consultar = () => {
-    fetch("http://localhost/API/?get=" + idpersona)
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        console.log(datosRespuesta);
-        setstate({ persona: datosRespuesta });
       })
       .catch(console.log());
   };
@@ -83,63 +67,61 @@ function Editar() {
           <Row>
             <Col>
               <h1>Edita tu cita</h1>
-              {state.persona.map((persona, index) => (
-                <Form key={index} onSubmit={enviarDatos}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Tu id</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="persona.idpersona"
-                      value={persona.idpersona}
-                      readOnly
-                    />
-                    <Form.Label>Ingresa tu nombre</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="name_person"
-                      defaultValue={persona.name_person}
-                      onChange={handleChange}
-                    />
-                    <Form.Label>Ingresa tu Correo</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      defaultValue={persona.email}
-                      onChange={handleChange}
-                    />
-                    <Form.Label>Ingresa el dia de tu cita</Form.Label>
-                    <Form.Control
-                      type="date"
-                      name="fecha"
-                      defaultValue={persona.fecha}
-                      onChange={handleChange}
-                    ></Form.Control>
-                    <Form.Label>Ingresa la hora</Form.Label>
-                    <Form.Control
-                      type="time"
-                      name="hour"
-                      defaultValue={persona.hour}
-                      onChange={handleChange}
-                    ></Form.Control>
-                    <Form.Label>Ingresa un asunto de tu cita</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="asunto"
-                      name="subject"
-                      defaultValue={persona.subject}
-                      onChange={handleChange}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Button variant="secondary" type="submit">
-                    Guardar
+              <Form>
+                <Form.Group className="mb-3">
+                  <Form.Label>Tu id</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="persona.idpersona"
+                    value={idpersona}
+                    readOnly
+                  />
+                  <Form.Label>Ingresa tu nombre</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="name_person"
+                    value={stateUser.name_person}
+                    onChange={handleChange}
+                  />
+                  <Form.Label>Ingresa tu Correo</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={stateUser.email}
+                    onChange={handleChange}
+                  />
+                  <Form.Label>Ingresa el dia de tu cita</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="fecha"
+                    value={stateUser.fecha}
+                    onChange={handleChange}
+                  ></Form.Control>
+                  <Form.Label>Ingresa la hora</Form.Label>
+                  <Form.Control
+                    type="time"
+                    name="hour"
+                    value={stateUser.hour}
+                    onChange={handleChange}
+                  ></Form.Control>
+                  <Form.Label>Ingresa un asunto de tu cita</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="asunto"
+                    name="subject"
+                    value={stateUser.subject}
+                    onChange={handleChange}
+                  ></Form.Control>
+                </Form.Group>
+                <Button variant="secondary" type="button" onClick={enviarDatos}>
+                  Guardar
+                </Button>
+                <Link to="/dashboard">
+                  <Button variant="primary" type="submit">
+                    Cancelar
                   </Button>
-                  <Link to="/dashboard">
-                    <Button variant="primary" type="submit">
-                      Cancelar
-                    </Button>
-                  </Link>
-                </Form>
-              ))}
+                </Link>
+              </Form>
             </Col>
             <Col>
               {" "}
