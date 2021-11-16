@@ -8,6 +8,7 @@ import swal from "sweetalert";
 class Agendar extends React.Component {
   constructor(props) {
     super(props);
+    this.url = "https://alondrakatt.com/APIPROMOTER/";
     this.state = {
       email: "",
       namePatient: "",
@@ -39,7 +40,7 @@ class Agendar extends React.Component {
       subject: subject,
     };
 
-    fetch("http://localhost/API/?insert=1", {
+    fetch(this.url + "?insert=1", {
       method: "POST",
       body: JSON.stringify(datosEnviar),
     })

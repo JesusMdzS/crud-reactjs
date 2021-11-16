@@ -10,6 +10,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.url = "https://alondrakatt.com/APIPROMOTER/";
   }
 
   //DELETE
@@ -23,7 +24,7 @@ class Dashboard extends React.Component {
     }).then((willDelete) => {
       if (willDelete) {
         console.log(id);
-        fetch("http://localhost/API/?delete=" + id)
+        fetch(this.url + "?delete=" + id)
           .then((respuesta) => respuesta.json())
           .then((datosRespuesta) => {
             console.log(datosRespuesta);
@@ -41,7 +42,7 @@ class Dashboard extends React.Component {
 
   //GET ALL DATA
   cargarDatos() {
-    fetch("http://localhost/API/")
+    fetch(this.url)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         console.log(datosRespuesta);

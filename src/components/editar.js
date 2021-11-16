@@ -7,6 +7,8 @@ import swal from "sweetalert";
 import axios from "axios";
 
 function Editar() {
+  const url = "https://alondrakatt.com/APIPROMOTER/";
+
   let { idpersona } = useParams();
   // Declaración de una variable de estado que llamaremos "state"
   const [stateUser, setstateUser] = useState({
@@ -27,14 +29,14 @@ function Editar() {
   };
 
   const consultar = async () => {
-    await axios.get("http://localhost/API/?get=" + idpersona).then((res) => {
+    await axios.get(url + "?get=" + idpersona).then((res) => {
       console.log(res.data[0]);
       setstateUser(res.data[0]);
     });
   };
 
   const enviarDatos = async () => {
-    fetch("http://localhost/API/?update=" + idpersona, {
+    fetch(url + "?update=" + idpersona, {
       method: "POST",
       body: JSON.stringify(stateUser),
     })
